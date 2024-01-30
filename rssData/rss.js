@@ -12,6 +12,7 @@ async function obtenerNoticiasDesdeRSS(url) {
         titulo: item.title,
         enlace: item.link,
         descripcion: item.contentSnippet,
+        imagen: item.enclosure,
         fechaPublicacion: item.isoDate
       };
     });
@@ -28,5 +29,20 @@ async function obtenerNoticiasDesdeRSS(url) {
 }
 
 // Ejemplo de uso
-const urlRSS = 'https://www.telam.com.ar/rss2/ultimasnoticias.xml';
-obtenerNoticiasDesdeRSS(urlRSS);
+//const urlRSS = 'https://www.telam.com.ar/rss2/ultimasnoticias.xml';
+//const urlRSS = 'https://www.perfil.com/feed';
+//const urlRSS = 'https://www.clarin.com/rss/lo-ultimo/';
+//obtenerNoticiasDesdeRSS(urlRSS);
+
+const urlRSS = ['https://www.telam.com.ar/rss2/ultimasnoticias.xml',
+                'https://www.perfil.com/feed',
+                'https://www.clarin.com/rss/lo-ultimo/'
+                ];
+
+const pepito = async () => {
+    for (const item in urlRSS) {
+        await obtenerNoticiasDesdeRSS(urlRSS[item]);
+    };
+};
+
+pepito();
