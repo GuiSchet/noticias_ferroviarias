@@ -37,5 +37,9 @@ app.listen(port, () => {
 const filtroGuarda = async () => {
     const todasNoticias = await obtenerNoticiasDesdeURLs(urlsRSS, palabrasClave);
     await guardarTodasNoticias(todasNoticias);
-}
-filtroGuarda();
+};
+
+const intervalo = 2 * 60 * 60 * 1000; // 2 horas en milisegundos
+setInterval(() => {
+  filtroGuarda();
+}, intervalo);
