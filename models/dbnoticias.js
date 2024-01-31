@@ -5,8 +5,23 @@ const dbNoticias = db.define('dbnoticias', {
     titulo: {
         type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
-        timestamps: false
+        allowNull: false
+    },
+    enlace: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    descripcion: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    imagen: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    fechaPublicacion: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 })
 
