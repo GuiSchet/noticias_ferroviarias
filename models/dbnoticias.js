@@ -22,6 +22,10 @@ const dbNoticias = db.define('dbnoticias', {
     fechaPublicacion: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    puntaje: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
 

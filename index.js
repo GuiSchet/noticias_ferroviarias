@@ -1,5 +1,7 @@
 import express from 'express'
 import db from './config/db.js'
+import { guardarNoticia, guardarTodasNoticias } from './controllers/noticiasController.js';
+import { obtenerNoticiasDesdeURLs, palabrasClave, urlsRSS } from './rssData/rss.js';
 
 //crear la app...
 const app = express()
@@ -21,3 +23,9 @@ app.listen(port, () => {
     console.log('El servidor esta funcionando en el puerto 3000')
 });
 
+// filtro y guarda de noticias en la BD cada 2 horas...
+const filtroGuarda = async () => {
+    const todasNoticias = await obtenerNoticiasDesdeURLs(urlsRSS, palabrasClave);
+    await guardarTodasNoticias(todasNoticias);
+}
+filtroGuarda();

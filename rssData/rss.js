@@ -1,7 +1,6 @@
 import Parser from 'rss-parser';
 const parser = new Parser();
 
-
 async function obtenerNoticiasDesdeURLs(urls, palabrasClave) {
   const todasLasNoticias = [];
 
@@ -21,7 +20,14 @@ async function obtenerNoticiasDesdeURLs(urls, palabrasClave) {
       // Filtrar noticias basadas en palabras clave en la descripción
       const noticiasFiltradas = noticias.filter(noticia => {
         const descripcion = noticia.descripcion.toLowerCase();
-        return palabrasClave.some(palabra => descripcion.includes(palabra.toLowerCase()));
+        const palabrasClaveEncontradas = palabrasClave.filter(palabra =>
+          descripcion.includes(palabra.toLowerCase())
+        );
+
+        // Agregar la key "puntaje" al diccionario de la noticia
+        noticia.puntaje = palabrasClaveEncontradas.length;
+
+        return palabrasClaveEncontradas.length > 0;
       });
 
       todasLasNoticias.push(...noticiasFiltradas);
@@ -32,11 +38,12 @@ async function obtenerNoticiasDesdeURLs(urls, palabrasClave) {
   }
 
   // Hacer algo con todas las noticias (en este ejemplo, simplemente imprimirlas)
-  console.log(todasLasNoticias);
+  //console.log(todasLasNoticias);
 
   // Puedes devolver todas las noticias si lo necesitas en otro lugar de tu código
   return todasLasNoticias;
 }
+
 
 // Ejemplo de uso con una lista de URLs y palabras clave
 const urlsRSS = ['https://www.clarin.com/rss/lo-ultimo',
@@ -112,7 +119,31 @@ const urlsRSS = ['https://www.clarin.com/rss/lo-ultimo',
               'https://www.minutoar.com.ar/rss/feed.html?r=4',
               'https://www.minutoar.com.ar/rss/feed.html?r=5',
               'https://www.minutoar.com.ar/rss/feed.html?r=2',
+              'https://www.lapoliticaonline.com/files/rss/politica.xml',
+              'https://www.lapoliticaonline.com/files/rss/judiciales.xml',
+              'https://www.lapoliticaonline.com/files/rss/ciudad.xml',
+              'https://www.lapoliticaonline.com/files/rss/provincia.xml',
+              'https://www.lapoliticaonline.com/files/rss/conurbano.xml',
+              'https://www.lapoliticaonline.com/files/rss/santafe.xml',
+              'https://www.lapoliticaonline.com/files/rss/transporte.xml',
+              'https://www.lapoliticaonline.com/files/rss/campo.xml',
+              'https://www.lapoliticaonline.com/files/rss/medios.xml'
             ];
-const palabrasClave = ['ministerio', 'ministerios', 'trenes', 'tren', 'trenes', 'vias', 'ferrocarril', 'ferroviarios', 'vial', 'viales', 'puente', 'puentes','obra', 'obras', 'licitacion', 'licitaciones', 'transporte', 'transportes', 'ADIF', 'SOFSE', 'ingenieria'];
-console.log(urlsRSS)
-obtenerNoticiasDesdeURLs(urlsRSS, palabrasClave);
+
+const palabrasClave = [
+  'ministerio', 'ministerios', 
+  'trenes', 'tren', 'trenes', 
+  'vias', 'ferrocarril', 'ferroviarios', 
+  'vial', 'viales', 'puente', 'puentes',
+  'obra', 'obras', 'licitacion', 'licitaciones', 
+  'transporte', 'transportes', 
+  'ADIF', 'SOFSE', 'ingenieria',
+  'ferroviario', 'infraestructura', 'infraestructuras',
+  'movilidad', 'logistica', 'construccion', 'desarrollo',
+  'planificacion', 'ingeniero', 'concesion', 'desplazamiento'
+];
+//console.log(urlsRSS)
+//obtenerNoticiasDesdeURLs(urlsRSS, palabrasClave);
+
+
+export {obtenerNoticiasDesdeURLs, palabrasClave, urlsRSS}
