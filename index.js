@@ -2,10 +2,20 @@ import express from 'express'
 import db from './config/db.js'
 import { guardarNoticia, guardarTodasNoticias } from './controllers/noticiasController.js';
 import { obtenerNoticiasDesdeURLs, palabrasClave, urlsRSS } from './rssData/rss.js';
+import usuarioRoutes from './routes/usuarioRoutes.js'
 
 //crear la app...
 const app = express()
 
+//habilitar pug
+app.set('view engine', 'pug')
+app.set('views', './views')
+
+//carpeta publica
+app.use(express.static('public'))
+
+//middleware
+app.use('/', usuarioRoutes)
 
 // conexion a la base de datos.
 try {

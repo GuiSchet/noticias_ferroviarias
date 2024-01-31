@@ -1,0 +1,26 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Noticias Ferroviarias | #{pagina}
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css") // Enlace al archivo CSS de Tailwind desde CDN
+    link(rel="stylesheet", href="/css/app.css") // Agrega tu propio archivo CSS personalizado si es necesario
+  body(class="font-sans antialiased bg-gray-900 text-white min-h-screen")
+
+    header(class="bg-gray-800 py-4")
+      div(class="container mx-auto")
+        h1(class="text-2xl font-semibold") Bienes Raíces
+
+    main(class="mx-auto container mt-10 p-4")
+      each noticia in noticias
+        .noticia-container(class="mb-6 p-4 bg-gray-800 rounded-lg")
+          h2(class="text-xl font-semibold mb-2") #{noticia.titulo}
+          p(class="text-gray-400 text-sm mb-2") #{noticia.fechaPublicacion}
+          p(class="text-gray-300") #{noticia.descripcion}
+          a(href=noticia.enlace, class="text-blue-500 hover:underline block mt-2") Leer más
+
+    footer(class="bg-gray-800 py-4 mt-10")
+      div(class="container mx-auto text-center text-sm")
+        p Copyleft 2024 - Noticias Ferroviarias
+

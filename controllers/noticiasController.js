@@ -33,4 +33,14 @@ const guardarTodasNoticias = async (listaNoticias) => {
     }
 };
 
-export {guardarNoticia, guardarTodasNoticias}
+const leerTodasNoticias = async () => {
+    const todasNoticias = await dbNoticias.findAll();
+    let listaNoticias = [];
+    for (const noti of todasNoticias) {
+        listaNoticias.push(noti['dataValues']);
+    };
+    //console.log(listaNoticias);
+    return listaNoticias
+}
+
+export {guardarNoticia, guardarTodasNoticias, leerTodasNoticias}
